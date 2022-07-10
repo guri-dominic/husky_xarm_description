@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find xarm_description)/urdf/xarm6_robot.urdf.xacro" />
+
+  <joint name="arm_mount_joint" type="fixed">
+    <parent link="top_plate_front_link" />
+    <child link="base_link" />
+    <origin xyz="$(optenv HUSKY_XARM6_XYZ -0.105 0.0 0.0)" rpy="$(optenv HUSKY_XARM6_RPY 0 0 3.1415927)"/>
+  </joint>
+
+  <xacro:xarm6_robot prefix="xarm6_arm_" />
+</robot>

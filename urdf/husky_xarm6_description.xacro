@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="https://ros.org/wiki/xacro" name="husky_xarm6">
+  <xacro:arg name="arm_prefix" default="" />
+  <xacro:arg name="prefix_2" default="R_" />
+  <xacro:arg name="ros_namespace" default="xarm"/>
+  <xacro:arg name="limited" default="false"/>
+  <xacro:arg name="effort_control" default="false"/>
+  <xacro:arg name="velocity_control" default="false"/>
+  <xacro:arg name="add_gripper" default="false"/>
+
+  <!-- husky -->
+  <xacro:include filename="$(find husky_description)/urdf/husky.urdf.xacro" />
+  <!-- <xacro:husky_robot /> -->
+  <!-- xarm6 -->
+  <xacro:include filename="$(find xarm_description)/urdf/xarm6_robot_macro.xacro" />
+  <xacro:xarm6_robot prefix="$(arg arm_prefix)" namespace="$(arg ros_namespace)" limited="$(arg limited)" attach_to="ground" xyz="0 0 0" rpy="0 0 0" effort_control="$(arg effort_control)" velocity_control="$(arg velocity_control)"/>
+
+  <!-- define the xarm's position and orientation on the husky -->
+  <joint name="arm_mount_joint" type="fixed">
+    <parent link="top_plate_front_link" />
+    <child link="$(arg arm_prefix)link_base" />
+    <!-- <origin xyz="$(optenv HUSKY_XARM6_XYZ -0.105 0.0 0.0)" rpy="$(optenv HUSKY_XARM6_RPY 0 0 3.1415927)"/> -->
+    <!-- LxWxH 990x670x390 -->
+    <origin xyz="$(optenv HUSKY_XARM6_XYZ -0.445 0.335 0.12)" rpy="$(optenv HUSKY_XARM6_RPY 0 1.570796327 1.570796327)"/>
+  </joint>
+</robot>

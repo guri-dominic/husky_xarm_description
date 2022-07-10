@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+
+
+    <!-- 
+        prefix="$(arg arm_prefix)" 
+        namespace="$(arg ros_namespace)" 
+        limited="$(arg limited)" 
+        attach_to="ground" 
+        xyz="0 0 0" 
+        rpy="0 0 0" 
+        effort_control="$(arg effort_control)" 
+        velocity_control="$(arg velocity_control)" 
+    -->
+
+  <arg name="limited" default="false" doc="If true, limits joint range [-PI, PI] on all joints." />
+  <arg name="add_gripper" default="false" doc="If true, will attach xarm_gripper from UFACTORY to the end" />
+  <arg name="add_vacuum_gripper" default="false" doc="If true, will attach vacuum gripper from UFACTORY to the end" />
+  <arg name="robot_type" default="lite" />
+  
+  <param name="robot_description"
+    command="$(find xacro)/xacro
+    --inorder '$(find husky_xarm_description)/urdf/husky_xarm6_description.xacro'
+    limited:=$(arg limited) add_gripper:=$(arg add_gripper) add_vacuum_gripper:=$(arg add_vacuum_gripper)" />
+</launch>
